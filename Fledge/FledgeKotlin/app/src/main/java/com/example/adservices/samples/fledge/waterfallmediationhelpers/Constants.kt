@@ -80,14 +80,14 @@ function reportResult(ad_selection_config, render_uri, bid, contextual_signals) 
     if (textView != null) {
       return stringNotNullAndNotEmpty(textView.text.toString())
     }
-    return false;
+    return false
   }
 
   fun hasTextNotEmpty(textView: EditText?): Boolean {
     if (textView != null) {
       return stringNotNullAndNotEmpty(textView.text.toString())
     }
-    return false;
+    return false
   }
 
   private fun stringNotNullAndNotEmpty(str: String?): Boolean {

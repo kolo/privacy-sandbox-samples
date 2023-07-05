@@ -43,7 +43,7 @@ class CustomAudienceHelper(
       addOverrideCustomAudience(customAudience)
     }
     joinCustomAudience(customAudience)
-    Log.i(Constants.TAG, customAudience.buyer.toString() + " buyer is returned")
+    Log.i(TAG, customAudience.buyer.toString() + " buyer is returned")
     return customAudience.buyer
   }
 

@@ -59,6 +59,7 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    namespace 'com.example.adservices.samples.fledge.sampleapp'
 }
 
 dependencies {

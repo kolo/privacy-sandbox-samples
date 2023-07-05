@@ -123,12 +123,12 @@ class MainActivity : AppCompatActivity() {
    * tying the UI elements to the wrappers so that button clicks trigger the appropriate methods.
    */
   override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState);
-    context = applicationContext;
-    binding = ActivityMainBinding.inflate(layoutInflater);
-    val view = binding!!.root;
-    setContentView(view);
-    eventLog = EventLogManager(binding!!.eventLog);
+    super.onCreate(savedInstanceState)
+    context = applicationContext
+    binding = ActivityMainBinding.inflate(layoutInflater)
+    val view = binding!!.root
+    setContentView(view)
+    eventLog = EventLogManager(binding!!.eventLog)
     try {
       // Get override reporting URI
       val reportingUriString = getIntentOrError("baseUrl", eventLog!!, MISSING_FIELD_STRING_FORMAT_RESTART_APP)
@@ -143,7 +143,7 @@ class MainActivity : AppCompatActivity() {
               reportingUriString)
 
       // Setup overrides since they are on by default
-      setupOverrideFlow(2L);
+      setupOverrideFlow(2L)
 
       // Setup report impressions button
       setupReportImpressionButton(adWrapper!!, binding!!, eventLog!!)
@@ -158,7 +158,7 @@ class MainActivity : AppCompatActivity() {
       binding!!.overrideSelect.setOnCheckedChangeListener(this::toggleOverrideSwitch)
 
       // Set package names
-      setupPackageNames();
+      setupPackageNames()
     } catch (e: Exception) {
       Log.e(TAG, "Error when setting up app", e)
     }
@@ -204,7 +204,7 @@ class MainActivity : AppCompatActivity() {
         resetOverrides(eventLog!!, adWrapper!!, caWrapper!!)
 
         // Set up the contextual ads switches
-        setupContextualAdsSwitches(baseUri, eventLog!!);
+        setupContextualAdsSwitches(baseUri, eventLog!!)
 
       } catch (e: Exception) {
         binding!!.overrideV2BiddingLogic.isChecked = true
@@ -226,7 +226,7 @@ class MainActivity : AppCompatActivity() {
     mBiddingLogicUri = Uri.parse("$overrideUriBase/bidding")
     mScoringLogicUri = Uri.parse("$overrideUriBase/scoring")
     mTrustedDataUri = Uri.parse("$mBiddingLogicUri/trusted")
-    mContextualLogicUri = Uri.parse("$overrideUriBase/contextual");
+    mContextualLogicUri = Uri.parse("$overrideUriBase/contextual")
 
     mBuyer = resolveAdTechIdentifier(mBiddingLogicUri)
     mSeller = resolveAdTechIdentifier(mScoringLogicUri)
@@ -248,7 +248,7 @@ class MainActivity : AppCompatActivity() {
     setupAppInstallSwitch(mBiddingLogicUri, eventLog!!)
 
     // Set up the contextual ads switches
-    setupContextualAdsSwitches(overrideUriBase, eventLog!!);
+    setupContextualAdsSwitches(overrideUriBase, eventLog!!)
 
     // Set up CA switches
     setupCASwitches(caWrapper!!, eventLog!!, binding!!, mBiddingLogicUri, context!!)
@@ -257,7 +257,7 @@ class MainActivity : AppCompatActivity() {
     val biddingLogicJs = if (biddingLogicVersion == 2L) overrideBiddingJsV2 else overrideBiddingJsV3
 
     // Setup remote overrides by default
-    useOverrides(eventLog!! ,adWrapper!!, caWrapper!!, overrideDecisionJS!!, biddingLogicJs!!, overrideContextualJs!!, biddingLogicVersion, TRUSTED_SCORING_SIGNALS, TRUSTED_BIDDING_SIGNALS, mBiddingLogicUri, context!!);
+    useOverrides(eventLog!! ,adWrapper!!, caWrapper!!, overrideDecisionJS!!, biddingLogicJs!!, overrideContextualJs!!, biddingLogicVersion, TRUSTED_SCORING_SIGNALS, TRUSTED_BIDDING_SIGNALS, mBiddingLogicUri, context!!)
   }
 
   private fun setupContextualAdsSwitches(baseUri: String, eventLog: EventLogManager) {
@@ -288,11 +288,11 @@ class MainActivity : AppCompatActivity() {
       if (isChecked && !contextualAds!!.adsWithBid.contains(appInstallAdWithBid)) {
         eventLog.writeEvent("Will insert an app install contextual ad into all auctions")
         contextualAds!!.adsWithBid.add(appInstallAdWithBid)
-        binding!!.contextualAiDataInput.isEnabled = false;
+        binding!!.contextualAiDataInput.isEnabled = false
       } else {
         eventLog.writeEvent("Will stop inserting an app install contextual ad into all auctions")
         contextualAds!!.adsWithBid.remove(appInstallAdWithBid)
-        binding!!.contextualAiDataInput.isEnabled = true;
+        binding!!.contextualAiDataInput.isEnabled = true
       }
       adWrapper = AdSelectionWrapper(
         listOf(mBuyer!!),
@@ -411,11 +411,11 @@ class MainActivity : AppCompatActivity() {
                                    Uri.parse("$biddingUri/trusted"),
                                    eventLog::writeEvent,
                                    calcExpiry(ONE_DAY_EXPIRY),
-                                   getAppInstallFilterForPackage(binding.caAiDataInput.getText().toString()))
-        binding.caAiDataInput.isEnabled = false;
+                                   getAppInstallFilterForPackage(binding.caAiDataInput.text.toString()))
+        binding.caAiDataInput.isEnabled = false
       } else {
         caWrapper.leaveCa(APP_INSTALL_CA_NAME, context.packageName, AdTechIdentifier.fromString(biddingUri.host!!), eventLog::writeEvent)
-        binding.caAiDataInput.isEnabled = true;
+        binding.caAiDataInput.isEnabled = true
       }
     }
 
@@ -510,7 +510,7 @@ class MainActivity : AppCompatActivity() {
           eventLog.writeEvent(
             event!!)
         }
-      } catch (e: java.lang.NumberFormatException) {
+      } catch (e: NumberFormatException) {
         Log.e(TAG,
               String.format("Error while parsing the ad selection id: %s", e))
         eventLog.writeEvent("Invalid AdSelectionId. Cannot run report interaction!")
@@ -534,7 +534,7 @@ class MainActivity : AppCompatActivity() {
           eventLog.writeEvent(
             event!!)
         }
-      } catch (e: java.lang.NumberFormatException) {
+      } catch (e: NumberFormatException) {
         Log.e(TAG,
               String.format("Error while parsing the ad selection id: %s", e))
         eventLog.writeEvent("Invalid AdSelectionId. Cannot run update ad counter histogram!")
@@ -647,7 +647,7 @@ class MainActivity : AppCompatActivity() {
     return Instant.now().plus(duration)
   }
 
-  private fun getAppInstallFilterForPackage(packageName: String): AdFilters? {
+  private fun getAppInstallFilterForPackage(packageName: String): AdFilters {
     return AdFilters.Builder()
       .setAppInstallFilters(AppInstallFilters.Builder()
                               .setPackageNames(setOf(packageName))

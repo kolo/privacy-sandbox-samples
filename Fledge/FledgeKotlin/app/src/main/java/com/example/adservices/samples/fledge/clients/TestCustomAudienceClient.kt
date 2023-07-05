@@ -44,18 +44,18 @@ class TestCustomAudienceClient private constructor(
    */
   fun overrideCustomAudienceRemoteInfo(
     request: AddCustomAudienceOverrideRequest,
-  ): ListenableFuture<Void?>? {
+  ): ListenableFuture<Void?> {
     return CallbackToFutureAdapter.getFuture { completer: CallbackToFutureAdapter.Completer<Void?> ->
       mTestCustomAudienceManager.overrideCustomAudienceRemoteInfo(
         request,
         mExecutor,
-        object : OutcomeReceiver<Any?, java.lang.Exception?> {
+        object : OutcomeReceiver<Any, Exception> {
           override fun onResult(ignoredResult: Any) {
             completer.set(null)
           }
 
-          override fun onError(error: java.lang.Exception) {
-            completer.setException(error!!)
+          override fun onError(error: Exception) {
+            completer.setException(error)
           }
         })
       "overrideCustomAudienceRemoteInfo"
@@ -68,18 +68,18 @@ class TestCustomAudienceClient private constructor(
    */
   fun removeCustomAudienceRemoteInfoOverride(
     request: RemoveCustomAudienceOverrideRequest,
-  ): ListenableFuture<Void?>? {
+  ): ListenableFuture<Void?> {
     return CallbackToFutureAdapter.getFuture { completer: CallbackToFutureAdapter.Completer<Void?> ->
       mTestCustomAudienceManager.removeCustomAudienceRemoteInfoOverride(
         request,
         mExecutor,
-        object : OutcomeReceiver<Any?, java.lang.Exception?> {
-          override fun onResult(ignoredResult: Any) {
-            completer.set(null)
+        object : OutcomeReceiver<Any?, Exception?> {
+          override fun onError(error: Exception) {
+            completer.setException(error)
           }
 
-          override fun onError(error: java.lang.Exception) {
-            completer.setException(error!!)
+          override fun onResult(ignoredResult: Any?) {
+            completer.set(null)
           }
         })
       "removeCustomAudienceRemoteInfoOverride"
@@ -90,17 +90,17 @@ class TestCustomAudienceClient private constructor(
    * Invokes the {@code resetAllCustomAudienceOverrides} method of {@link CustomAudienceManager},
    * and returns a Void future
    */
-  fun resetAllCustomAudienceOverrides(): ListenableFuture<Void?>? {
+  fun resetAllCustomAudienceOverrides(): ListenableFuture<Void?> {
     return CallbackToFutureAdapter.getFuture { completer: CallbackToFutureAdapter.Completer<Void?> ->
       mTestCustomAudienceManager.resetAllCustomAudienceOverrides(
         mExecutor,
         object : OutcomeReceiver<Any?, Exception?> {
-          override fun onResult(ignoredResult: Any) {
-            completer.set(null)
+          override fun onError(error: Exception) {
+            completer.setException(error)
           }
 
-          override fun onError(error: Exception) {
-            completer.setException(error!!)
+          override fun onResult(p0: Any?) {
+            completer.set(null)
           }
         })
       "resetAllCustomAudienceOverrides"
@@ -115,7 +115,7 @@ class TestCustomAudienceClient private constructor(
     private var mExecutor: Executor? = null
 
     /** Sets the context.  */
-    fun setContext(context: Context): TestCustomAudienceClient.Builder {
+    fun setContext(context: Context): Builder {
       Objects.requireNonNull(context)
       mContext = context
       return this
@@ -126,7 +126,7 @@ class TestCustomAudienceClient private constructor(
      *
      * @param executor the worker executor used to run heavy background tasks.
      */
-    fun setExecutor(executor: Executor) : TestCustomAudienceClient.Builder {
+    fun setExecutor(executor: Executor) : Builder {
       Objects.requireNonNull(executor)
       mExecutor = executor
       return this

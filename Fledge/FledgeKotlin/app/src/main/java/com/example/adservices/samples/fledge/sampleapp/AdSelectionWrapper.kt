@@ -304,7 +304,7 @@ class AdSelectionWrapper(
       .build()
   }
 
-  private fun fCapEventToString(eventType: Int): String? {
+  private fun fCapEventToString(eventType: Int): String {
     val result: String = when (eventType) {
       FrequencyCapFilters.AD_EVENT_TYPE_WIN -> "win"
       FrequencyCapFilters.AD_EVENT_TYPE_CLICK -> "click"

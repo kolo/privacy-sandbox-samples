@@ -76,7 +76,7 @@ class CustomAudienceWrapper(
     trustedBiddingUri: Uri,
     statusReceiver: Consumer<String>,
     expiry: Instant) {
-      joinCa(name, buyer, biddingUri, renderUri, dailyUpdateUri, trustedBiddingUri, statusReceiver, expiry, null);
+      joinCa(name, buyer, biddingUri, renderUri, dailyUpdateUri, trustedBiddingUri, statusReceiver, expiry, null)
   }
 
   /**
@@ -180,7 +180,7 @@ class CustomAudienceWrapper(
           .setUserBiddingSignals(AdSelectionSignals.EMPTY)
           .build(),
         statusReceiver)
-    } catch (e: java.lang.Exception) {
+    } catch (e: Exception) {
       statusReceiver.accept("Got the following exception when trying to join " + name
                               + " custom audience: " + e)
       Log.e(TAG, "Exception calling joinCustomAudience", e)

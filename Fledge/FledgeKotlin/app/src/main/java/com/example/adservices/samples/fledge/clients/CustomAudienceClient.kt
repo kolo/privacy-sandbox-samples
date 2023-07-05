@@ -47,12 +47,12 @@ class CustomAudienceClient private constructor(
       customAudienceManager.joinCustomAudience(
         request,
         executor,
-        object : NullableOutcomeReceiver<Any?, java.lang.Exception?> {
+        object : NullableOutcomeReceiver<Any?, Exception?> {
           override fun onResult(result: Any?) {
             completer.set(null)
           }
 
-          override fun onError(error: java.lang.Exception?) {
+          override fun onError(error: Exception?) {
             completer.setException(error!!)
           }
         })
@@ -73,12 +73,12 @@ class CustomAudienceClient private constructor(
       customAudienceManager.leaveCustomAudience(
         request,
         executor,
-        object : OutcomeReceiver<Any, java.lang.Exception> {
+        object : OutcomeReceiver<Any, Exception> {
           override fun onResult(ignoredResult: Any) {
             completer.set(null)
           }
 
-          override fun onError(error: java.lang.Exception) {
+          override fun onError(error: Exception) {
             completer.setException(error)
           }
         })

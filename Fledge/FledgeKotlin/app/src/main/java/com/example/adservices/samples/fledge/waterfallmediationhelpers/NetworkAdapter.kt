@@ -145,7 +145,7 @@ open class NetworkAdapter(
           adSelectionConfig,
           String.format(Constants.SCORING_LOGIC_WITH_BID_FLOOR_JS, uriFriendlyName),
           AdSelectionSignals.EMPTY))!![10, TimeUnit.SECONDS]
-      Log.i(Constants.TAG, "$networkName adSelection overrides success!")
+      Log.i(TAG, "$networkName adSelection overrides success!")
       writeEvent("Adds AdSelectionConfig overrides")
     } catch (e: Exception) {
       Log.e(TAG, "Exception adding overrides for $networkName: $e")
